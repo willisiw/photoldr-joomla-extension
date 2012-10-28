@@ -1,5 +1,5 @@
 <?php
-
+// Any minor changes will now be tracked.  Once they are in this folder.
 
  if(file_exists('../configuration.php'))
  {
