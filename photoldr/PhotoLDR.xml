@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="2.5.0" type="component">
+<name>PhotoLDR</name>
+<author>John Doe</author>
+<version>1.0.0</version>
+<description>style different articles in the home page differently</description>
+<files>
+<filename component="com_PhotoLDR">PhotoLDR.php</filename>
+</files>
+
+
+<administration>
+<menu>PhotoLDR</menu>
+<files>
+<filename component="admin.PhotoLDR">admin.PhotoLDR.php</filename>
+
+</files>
+</administration>
+</install>

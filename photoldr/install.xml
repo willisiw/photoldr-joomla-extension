@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="1.5.0">
+	<name>PhotoLDR</name>
+	<!-- The following elements are optional and free of formatting conttraints -->
+	<creationDate>2007-02-22</creationDate>
+	<author>John Doe</author>
+	<authorEmail>john.doe@example.org</authorEmail>
+	<authorUrl>http://www.example.org</authorUrl>
+	<copyright>Copyright Info</copyright>
+	<license>License Info</license>
+	<!--  The version string is recorded in the components table -->
+	<version>3.01</version>
+	<!-- The description is optional and defaults to the name -->
+	<description>Description of the component ...</description>
+
+	<!-- Site Main File Copy Section -->
+	<!-- Note the folder attribute: This attribute describes the folder
+  	   to copy FROM in the package to install therefore files copied
+    	 in this section are copied from /site/ in the package -->
+	<files folder="site">
+		<filename>controller.php</filename>
+		<filename>PhotoLDR.php</filename>
+		<filename>index.html</filename>
+		<filename>models/PhotoLDR.php</filename>
+		<filename>models/index.html</filename>
+		<filename>views/index.html</filename>
+		<filename>views/PhotoLDR/index.html</filename>
+		<filename>views/PhotoLDR/view.html.php</filename>
+		<filename>views/PhotoLDR/tmpl/default.php</filename>
+		<filename>views/PhotoLDR/tmpl/index.html</filename>
+		
+	</files>
+	
+	<files>
+     <filename>PhotoLDR.php</filename>
+   </files>
+
+	
+	
+
+	<install>
+		<sql>
+			<file charset="utf8" driver="mysql">install.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file charset="utf8" driver="mysql">uninstall.sql</file>
+		</sql>
+	</uninstall>
+
+	<administration>
+		<!-- Administration Menu Section -->
+		<menu>PhotoLDR</menu>
+
+		<!-- Administration Main File Copy Section -->
+		<files folder="admin">
+			<filename>PhotoLDR.php</filename>
+			<filename>index.html</filename>
+			<filename>install.sql</filename>
+			<filename>uninstall.sql</filename>
+			
+
+		</files>  
+		<files>
+          <filename>admin.PhotoLDR.php</filename>
+
+       </files>
+	</administration>
+</install>
