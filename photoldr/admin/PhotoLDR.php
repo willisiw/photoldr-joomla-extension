@@ -1,4 +1,3 @@
-
 <?php 
 // to encrypt pasword
 /*$salt = JUserHelper::genRandomPassword(32);
@@ -12,16 +11,13 @@ echo $pass;*/
 echo $hashparts[0]; //this is the hash  4e9e4bcc5752d6f939aedb42408fd3aa
 echo $hashparts[1];//salt
  echo $userhash = md5($userpassword.$hashparts[1])."meenu";
-
 */
-
-
-
-
-
 //code to get url of site
 $user =& JFactory::getUser();
  $userId = $user->get( 'id' );
+ $group_id = &JFactory::group_id();
+echo 'User group id is '.$group_id ;
+echo "</br>";
 //echo '<input type="hidden" name="user_id" value="' . $userId . '" />';
 $url = JURI::root();
 $output = preg_replace("/^(http:\/\/)/", "", $url);
@@ -30,55 +26,41 @@ $fqdn = rtrim($output,"/");
 //echo $fqdn; 
 if(file_exists('../configuration.php'))
  {
- 
- require_once('../configuration.php');
+  require_once('../configuration.php');
 }
 $obj=new JConfig;
-
 $database=$obj->db;
  $db_host=$obj->host;
 $db_host=$obj->host;
 $db_login=$obj->user;
 $db_pass=$obj->password;
-
 $dbprefix=$obj->dbprefix;
   $db = mysql_connect("$db_host","$db_login","$db_pass");
 //mysql_select_db($database,$db);
-
 mysql_select_db($database,$db);
 if(isset($_POST['submit'])){
 //$fqdn = JURI::root();// $_POST['text1'];
 $expiry = $_POST['text2'];
-
 $arr=$_POST['select2'];
 $real_selection = ""; 
 foreach($arr as $key => $value) 
 { 
   if ($real_selection)
-   echo $real_selection .= ", ".trim($value);
+  $real_selection .= ", ".trim($value);
   else
-   $real_selection = trim($value); 
+  $real_selection = trim($value); 
 }  
- 
-$image_style = $_POST['select'];
+ $image_style = $_POST['select'];
 $icon_style = $_POST['select1'];
- 
-$defaultitem = $_POST['select22'];
+ $defaultitem = $_POST['select22'];
 $name2 = $_POST['name'];
 $password2 = $_POST['password'];
 
-
- echo $insert = "INSERT INTO ".$dbprefix."photo(userid,fqdn,expiry,content_type,image_style,icon_style,defaultitem,name,password)VALUES('$userId','$fqdn','$expiry','".mysql_escape_string($real_selection)."','$image_style','$icon_style','$defaultitem','$name2','$password2')";
+//echo $real = mysql_escape_string($real_selection);
+ $insert = "INSERT INTO ".$dbprefix."photo(userid,fqdn,expiry,content_type,image_style,icon_style,defaultitem,name,password)VALUES('$userId','$fqdn','$expiry','".mysql_escape_string($real_selection)."','$image_style','$icon_style','$defaultitem','$name2','$password2')";
 mysql_query($insert);
-
-
-
-
 }
 ?>
-
-
-
 <form name = "form1" action = "" method = "POST">
 <span style = "font-size:14px;font-weight:bold;">Username</span><br/>
 <input type = "text" name = "name" value = ""/><br/>Enter you username<br/>
@@ -95,8 +77,7 @@ Enter a relative string like +3 months, +90 days, +1 year, or a static date as Y
         <option value="article">article</option>
         <option value="banner">banner</option>
 		 <option value="Category">Category</option>
-		 
-      </select>
+		      </select>
 <br/>select the types of content used by PhotoLDR. CTRL-click to select multiple.
 <br/><br/>
 <span style = "font-size:14px;font-weight:bold;">Image Style</span><br/>
@@ -104,7 +85,6 @@ Enter a relative string like +3 months, +90 days, +1 year, or a static date as Y
 <option value = "thumbnail">thumbnail</option>
 <option value = "medium">medium</option>
 <option value = "large">large</option>
-
 </select>
 <br/>Select the style of images displayed by PhotoLDR.</br></br>
 <span style = "font-size:14px;font-weight:bold;">Icon Style</span><br/>
@@ -112,58 +92,44 @@ Enter a relative string like +3 months, +90 days, +1 year, or a static date as Y
 <option value = "thumbnail">thumbnail</option>
 <option value = "medium">medium</option>
 <option value = "large">large</option>
-
 </select>
 <br/>Select the image style of icon displayed by PhotoLDR PhotoLDR.</br></br>
 <span style = "font-size:14px;font-weight:bold;">Type of item to post as default </span><br/>
 <select name = "select22">
 <option value = "articles">articles</option>
 <option value = "banners">banners</option>
-
-
 </select><br/></br>
 <span style = "font-size:17px;font-weight:bold;">Save Settings after changing any above options to refresh the available options bellow.</span><br/>
-
 <input type = "submit" name = "submit" value = "Save and Refresh"/>
 </form>
-
-
-
 <?php
-
-
  if(file_exists('../configuration.php'))
  {
- 
- require_once('../configuration.php');
+  require_once('../configuration.php');
 }
 $obj=new JConfig;
-
 $database=$obj->db;
  $db_host=$obj->host;
 $db_host=$obj->host;
 $db_login=$obj->user;
 $db_pass=$obj->password;
-
 $dbprefix=$obj->dbprefix;
   $db = mysql_connect("$db_host","$db_login","$db_pass");
 mysql_select_db($database,$db);
-
-
 defined('_JEXEC' ) or die('Restricted access');
-
-
-
-
- $sql ="SELECT * from ".$dbprefix."photo";
+echo $sql ="SELECT * from ".$dbprefix."photo where name = '$name2' order by id desc";
 $res = mysql_query($sql);
-while($row = mysql_fetch_array($res)){
+$row = mysql_fetch_array($res);
+/*echo $name3 = $row['name'];
+echo "</br>";
+echo $password3 = $row['password'];
+echo "</br>";
+$password9 = $password3.$salt;
+$password4 = md5($password9).":".$salt;*/
  $fqdn = $row['fqdn'];
 $expiry  = $row['expiry'];
 $content_type  = $row['content_type'];
-
 //echo "123";
-}
 $publish = 1;
 $standalone = 1;
 $cms = "joomla";
@@ -179,10 +145,8 @@ $uid = $row9['id'];
 $username = $row9['username'];
 $mail = $row9['email'];
 $password = $row9['password'];
-
 $parts = explode( ':', $password );
-echo $salt = $parts[1];
-
+$salt = $parts[1];
 /*query used to fetch data for articles*/
 $sql141="SELECT COUNT(*) FROM ".$dbprefix."content ";
 $res51= mysql_fetch_array(mysql_query($sql141));
@@ -199,9 +163,7 @@ $sectionid[] = $row1['sectionid'];
 $catid[] = $row1['catid'];
 $created[] = $row1['created'];
 $modified[] = $row1['modified'];
-
 }
-
 /*query used to fetch data for banners*/
 //$sql13="SELECT COUNT(*) FROM ".$dbprefix."banners ";
 //$res41= mysql_fetch_array(mysql_query($sql13));
@@ -230,17 +192,11 @@ $count4 = mysql_num_rows($res91);
 while($row4 = mysql_fetch_array($res91)){
 $id11[] = $row4['id'];
 $title1[] = $row4['title'];
-
 $description1[] = $row4['description'];
 $published1[] = $row4['published']; 	
-
-
-
 }
 /*calculate to content count*/
 $count3 = $count+$count1+$count4;
-
-
 ?>
 <?php 
 /*echo $asd = "select username,password from ".$dbprefix."users where id = $userId" ;
@@ -249,22 +205,29 @@ $zx = mysql_fetch_array($qwe);
 echo $name1 = $zx['username'];
 echo $password1 = $zx['password'];*/
 $asd1 = "select name,password from ".$dbprefix."photo ORDER BY Id DESC LIMIT 1 " ;
-echo "</br>";
 $qwe1 = mysql_query($asd1);
 $zx1 = mysql_fetch_array($qwe1);
-echo $name3 = $zx1['name'];
-echo "</br>";
-$password3 = $zx1['password'];
-echo "</br>";
+ $name3 = $zx1 ['name'];
+$password3 = $zx1 ['password'];
 $password9 = $password3.$salt;
-$password4 = md5($password9).":".$salt;
+ $password4 = md5($password9).":".$salt;
+ 
+ //get the group id for the user 
+$asd2 = "select * from ".$dbprefix."user_usergroup_map" ;
+$qwe2 = mysql_query($asd1);
+$zx2 = mysql_fetch_array($qwe1);
 echo "</br>";
-
-
+echo $grpid = $zx2['group_id '];
+echo "</br>";
+ 
+ 
+ 
+ 
+ 
 ?>
 <?php
-
- 
+//echo $content_type;
+ //echo $real
 echo '</xml>';
 $xml = new SimpleXMLElement('<domains/>');
 for ($i = 1; $i <= 1; ++$i) {
@@ -278,8 +241,7 @@ for ($i = 1; $i <= 1; ++$i) {
 	   $track->addChild('exp_date', "$expiry");
 	    $track->addChild('exp_url',"$fqdn");
 		$track->addChild('post_url', "$fqdn"."/photoldrstructure.xml");
-		
-		/*$track = $xml->addChild('FQDN',"$fqdn");
+				/*$track = $xml->addChild('FQDN',"$fqdn");
 		$track = $xml->addChild('published',"$publish");
 		$track = $xml->addChild('cms', "$cms");
 		$track = $xml->addChild('standalone',"$standalone");
@@ -292,24 +254,72 @@ for ($i = 1; $i <= 1; ++$i) {
 <option>app:Password:password:password:</option>
 <option>app:Publish:status:checkbox:</option>
 ");*/
-
 $track1 = $track->addChild('app_options');
 $track1->addChild('option',"app:Username:username:textfield:");
 $track1->addChild('option',"app:Password:password:password:");
 $track1->addChild('option',"app:Publish:status:checkbox:");
-
 //$track->addChild('app_options');
 $track2 = $track->addChild('form_items');
-$track2->addChild('option',"article:Hidden:posturl:"."$fqdn"."/photoldrstructure.xml");
-$track2->addChild('option',"article:Title:title:textfieldrequired");
+if($content_type == 'article'){
+if( $group_id == 6){
+$track2->addChild('option',"$content_type".":Hidden:posturl:"."$fqdn"."/photoldrstructure.xml");}
+elseif($group_id == 7){
+$track2->addChild('option',"$content_type".":Hidden:posturl:"."$fqdn"."/photoldrstructure.xml");}elseif ($group_id == 8){$track2->addChild('option',"$content_type".":Hidden:posturl:"."$fqdn"."/photoldrstructure.xml");}else{}
+$track2->addChild('option',"$content_type".":Title:title:textfield:required");
+$track2->addChild('option',"$content_type".":Category:title:textfield:required");
+$track2->addChild('option',"$content_type".":Body:body:textarea:required");
+}
+elseif ($content_type == 'banner'){
+if( $group_id == 6){
+$track2->addChild('option',"$content_type".":Hidden:posturl:"."$fqdn"."/photoldrstructure.xml");}
+elseif($group_id == 7){
+$track2->addChild('option',"$content_type".":Hidden:posturl:"."$fqdn"."/photoldrstructure.xml");}elseif ($group_id == 8){$track2->addChild('option',"$content_type".":Hidden:posturl:"."$fqdn"."/photoldrstructure.xml");}else{}
+$track2->addChild('option',"$content_type".":Title:title:textfield:required");
+$track2->addChild('option',"$content_type".":Body:body:textarea");
+}
+elseif ($content_type == 'Category'){
+if( $group_id == 6){
+$track2->addChild('option',"$content_type".":Hidden:posturl:"."$fqdn"."/photoldrstructure.xml");}
+elseif($group_id == 7){
+$track2->addChild('option',"$content_type".":Hidden:posturl:"."$fqdn"."/photoldrstructure.xml");}elseif ($group_id == 8){$track2->addChild('option',"$content_type".":Hidden:posturl:"."$fqdn"."/photoldrstructure.xml");}else{}
+$track2->addChild('option',"$content_type".":Title:title:textfield:required");
+$track2->addChild('option',"$content_type".":Body:body:textarea");
+}
+else {
+//$track2 = $track->addChild('form_items');
+$track2->addChild('option',"article:Title:title:textfield:required");
+$track2->addChild('option',"article:Body:body:textarea");
+$track2->addChild('option',"banner:Title:title:textfield:required");
+$track2->addChild('option',"banner:Body:body:textarea");
+$track2->addChild('option',"Category:Title:title:textfield:required");
+$track2->addChild('option',"Category:Body:body:textarea");
+
+/*$track2->addChild('option',"article:Hidden:posturl:"."$fqdn"."/photoldrstructure.xml");
+$track2->addChild('option',"article:Title:title:textfield:required");
 $track2->addChild('option',"article:Body:body:textarea:");
 $track2->addChild('option',"article:Tags:field_tags:textfield:UNSUPPORTED taxonomy");
 $track2->addChild('option',"article:Image:field_image:image:#9");
 $track2->addChild('option',"article:Replace Photos:image_overwrite:checkbox:");
 $track2->addChild('option',"page:Hidden:posturl:"."$fqdn"."/photoldrstructure.xml");
 $track2->addChild('option',"page:Title:title:textfield:#required");
-$track2->addChild('option',"page:Body:body:textarea:");
+$track2->addChild('option',"page:Body:body:textarea:");*/
+}
 
+//node type in form items tag
+$track3 = $track->addChild('node_types');
+if ($content_type == 'article'){ 
+$track3->addChild('options',"$content_type");
+}
+elseif ($content_type == 'banner'){ 
+$track3->addChild('options',"$content_type");
+}
+elseif ($content_type == 'Category'){ 
+$track3->addChild('options',"$content_type");
+} else {
+$track3->addChild('options',"article");
+$track3->addChild('options',"banner");
+$track3->addChild('options',"Category");
+}
 //$track->addChild('form_items');
 /* $track->addChild('form_items',"
       <option>
@@ -329,39 +339,26 @@ $track2->addChild('option',"page:Body:body:textarea:");
       <option>page:Body:body:textarea:</option>
       <option>
   ");*/
-  
-
- /* $track->addChild('form_items');
+   /* $track->addChild('form_items');
    $track->addChild('content_types');
       $track->addChild('content_types',"article:table");
 	  $track->addChild('content_types');
 	  $track->addChild('name',"$username");
 	   $track->addChild('email',"$mail");*/
-	  $track3 = $track->addChild('node_types'); 
-      $track3->addChild('options',"article:table");
-	  $track->addChild('name');
+	  	  $track->addChild('name');
 	   $track->addChild('email');
 	  /*$track = $xml->addChild('name',"$username");
 	  $track = $xml->addChild('email',"$mail");*/
-	  
-   //$track->addChild('content_count','<contents count="'.$count3.'">');
+	     //$track->addChild('content_count','<contents count="'.$count3.'">');
   // $track = $xml->addChild('content_count','count = "'.$count3.'"');
   //code for usercount and details
-  
-  
-   $track6 = $track->addChild('user');
+     $track6 = $track->addChild('user');
    $track6->addAttribute('user', $count5);
-   
-   
-
-  
-  
-   //for($j = 0;$j<=$count5-1;$j++){
-   
-   //$track6->addChild('user');
+      //for($j = 0;$j<=$count5-1;$j++){
+      //$track6->addChild('user');
    //$track5->addChild('id',"$id[$j]");
    if($name3 == $username && $password4 == $password ){
-   if($uid == ''){}else{
+     if($uid == ''){}else{
    $track6->addChild('id',"$uid");
    }
    if($username == ''){}else{
@@ -370,10 +367,8 @@ $track2->addChild('option',"page:Body:body:textarea:");
    if($mail == ''){}else{
      $track6->addChild('mail',"$mail");
 	 }}else {
-	 
-	 echo " u r not authenticated user </br>";
-	 
-	 }//}
+	 	 echo " u r not authenticated user </br>";
+	 	 }//}
 	//$value = ($new) $xml->user;
 //echo $value;
   /*Code for generating XMl for Artciles*/
@@ -382,10 +377,9 @@ $track2->addChild('option',"page:Body:body:textarea:");
  //$track4 = $track->addChild('nodes'.$new.''<count = "'.$count3.'"/>);
  $track4 = $track->addChild('nodes');
  $track4->addAttribute('count', $count3);
- if($content_type == "article"){
- for($j = 0;$j<=$count-1;$j++){
+ if($content_type == 'article'){ 
+  for($j = 0;$j<=$count-1;$j++){
  $track5 = $track4->addChild('node');
- 
      //$track2->addChild('content');
 	if($id[$j] == ''){ }else{
    $track5->addChild('nid',"$id[$j]");
@@ -398,8 +392,7 @@ $track2->addChild('option',"page:Body:body:textarea:");
      $track5->addChild('status',"$state[$j]");
 	 }
 	 	$track5->addChild('type',"article");
-		 
-		 if($created[$j] == ''){}else{
+		 		 if($created[$j] == ''){}else{
 	 $track5->addChild('created',"$created[$j]");
 	 }
 	 if($modified[$j] == ''){}else{
@@ -414,10 +407,10 @@ $track2->addChild('option',"page:Body:body:textarea:");
 	if($catid[$j] == ''){}else{
     $track5->addChild('cid',"$catid[$j]");
 	}  }
-	}
-	/*Code to generate XML for banners*/
+		/*Code to generate XML for banners*/
    //$track->addChild('content',"</content>");
-elseif ($content_type == "banner" ) {
+}
+elseif($content_type == 'banner' ) {
   for($j = 0;$j<=$count1-1;$j++){
   $track5 = $track4->addChild('node');
     //$track->addChild('content');
@@ -450,7 +443,8 @@ elseif ($content_type == "banner" ) {
   } }
   /*code to generate XML for categories*/
    //$track->addChild('content',"</content>");
- elseif ($content_type == "Category" ) {
+ elseif($content_type == 'Category' ) {
+ echo "vxcbcnxmcn ,m";
   for($j = 0;$j<=$count4-1;$j++){
     $track5 = $track4->addChild('node');
 	if($id11[$j] == ''){}else{
@@ -462,64 +456,151 @@ elseif ($content_type == "banner" ) {
   $track5->addChild('log');
   if($published1[$j] == ''){}else{
       $track5->addChild('status',"$published1[$j]");
-	  }
-	
+	  }	
 	$track5->addChild('type',"Category");
-	 
-	 
-	 if($description1[$j] == ''){}else{
+	 	 if($description1[$j] == ''){}else{
   $track5->addChild('body',"$description1[$j]");
   }
- 
-   if($id11[$j] == ''){}else{
+    if($id11[$j] == ''){}else{
     $track5->addChild('cid',"$id11[$j]");
 	}
   // $track->addChild('content',"</content>");
   }
   }
+  //for all the content type
+  else{
+  for($j = 0;$j<=$count-1;$j++){
+ $track5 = $track4->addChild('node');
+      //$track2->addChild('content');
+	if($id[$j] == ''){ }else{
+   $track5->addChild('nid',"$id[$j]");
+   }
+   if($title[$j] == ''){}else{
+   $track5->addChild('title',"$title[$j]");
   }
-  
-  //$track->addChild('contents');
+  $track5->addChild('log');
+ if($state[$j] == ''){}else{
+     $track5->addChild('status',"$state[$j]");
+	 }
+	 	$track5->addChild('type',"article");
+		 
+		 if($created[$j] == ''){}else{
+	 $track5->addChild('created',"$created[$j]");
+	 }
+	 if($modified[$j] == ''){}else{
+	 $track5->addChild('modified',"$modified[$j]");
+	 }
+	 if($fulltext[$j] == ''){}else{
+  $track5->addChild('body',"$fulltext[$j]");
+  }
+  if($sectionid[$j] == ''){}else{
+    $track5->addChild('sectionid',"$sectionid[$j]");
+	}
+	if($catid[$j] == ''){}else{
+    $track5->addChild('cid',"$catid[$j]");
+	}  }
+    for($j = 0;$j<=$count1-1;$j++){
+  $track5 = $track4->addChild('node');
+    //$track->addChild('content');
+	if($id1[$j] == ''){}else{
+   $track5->addChild('nid',"$id1[$j]");
+   }
+   if($name1[$j] == ''){}else{
+   $track5->addChild('title',"$name1[$j]");
+  }
+  $track5->addChild('log');
+  if($showBanner[$j] == ''){}else{
+      $track5->addChild('status',"$showBanner[$j]");
+	  }
+	 if($type[$j] == ''){}else{
+	 $track5->addChild('type',"banner");
+	 }
+	 if($date1[$j] == ''){}else{
+	 $track5->addChild('created',"$date1[$j]");
+	 }
+	 if($description[$j] == ''){}else{
+  $track5->addChild('body',"$description[$j]");
+  }
+  if($imageurl[$j] == ''){}{
+  $track5->addChild('image0',"$imageurl[$j]");
+  }
+   if($cid[$j] == ''){}else{
+    $track5->addChild('cid',"$cid[$j]");
+	}
+   //$track->addChild('content',"</content>");
+  }  for($j = 0;$j<=$count1-1;$j++){
+  $track5 = $track4->addChild('node');
+    //$track->addChild('content');
+	if($id1[$j] == ''){}else{
+   $track5->addChild('nid',"$id1[$j]");
+   }
+   if($name1[$j] == ''){}else{
+   $track5->addChild('title',"$name1[$j]");
+  }
+  $track5->addChild('log');
+  if($showBanner[$j] == ''){}else{
+      $track5->addChild('status',"$showBanner[$j]");
+	  }
+	 if($type[$j] == ''){}else{
+	 $track5->addChild('type',"banner");
+	 }
+	 if($date1[$j] == ''){}else{
+	 $track5->addChild('created',"$date1[$j]");
+	 }
+	 if($description[$j] == ''){}else{
+  $track5->addChild('body',"$description[$j]");
+  }
+  if($imageurl[$j] == ''){}{
+  $track5->addChild('image0',"$imageurl[$j]");
+  }
+   if($cid[$j] == ''){}else{
+    $track5->addChild('cid',"$cid[$j]");
+	}
+   //$track->addChild('content',"</content>");
+  }
+    for($j = 0;$j<=$count4-1;$j++){
+    $track5 = $track4->addChild('node');
+	if($id11[$j] == ''){}else{
+   $track5->addChild('nid',"$id11[$j]");
+   }
+   if($title1[$j] == ''){}else{
+   $track5->addChild('title',"$title1[$j]");
+  }
+  $track5->addChild('log');
+  if($published1[$j] == ''){}else{
+      $track5->addChild('status',"$published1[$j]");
+	  }
+		$track5->addChild('type',"Category");
+	 	 if($description1[$j] == ''){}else{
+  $track5->addChild('body',"$description1[$j]");
+  }
+    if($id11[$j] == ''){}else{
+    $track5->addChild('cid',"$id11[$j]");
+	}
+  // $track->addChild('content',"</content>");
+  }  }
+  }
+    //$track->addChild('contents');
 //  $track->addChild('form_items');
   //$track->addChild('form_items');
-
-
 $xml =$xml->asXML();
 //echo $xml ; ?><br/>
 <form name = "form1" action = "#" method = "POST">
 <input type = "submit" name = "submit1" value = "Create XML" /><br/>
 <?php $title = addslashes($xml);
-
-
  $insert1 = "INSERT INTO ".$dbprefix."xml(xml)VALUES('$title')";
 mysql_query($insert1);
-
 $sql1 ="SELECT * from ".$dbprefix."xml";
 $res1 = mysql_query($sql1);
 while($row1 = mysql_fetch_array($res1)){
 echo $xml = $row1['xml'];
-
-
-
 if (isset($_POST['submit1']))
 {
      $xml = $row1['xml'];
-	
-}
-
-
+	}
 $fp = fopen('../photoldrstructure.xml', 'w');
-
-
-
  fputs($fp, $xml);
 }
-
-
-
 fclose($fp);
-
 ?>
-
-
 </form>
