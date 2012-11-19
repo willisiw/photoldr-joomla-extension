@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="2.5.0" type="component">
+<name>PhotoLdr</name>
+<author>shalini</author>
+<version>1.0.0</version>
+<description>style different articles in the home page differently</description>
+<files>
+<filename component="com_new">new.php</filename>
+</files>
+
+
+<administration>
+<menu>new</menu>
+<files>
+<filename component="admin.new">admin.new.php</filename>
+
+</files>
+</administration>
+</install>

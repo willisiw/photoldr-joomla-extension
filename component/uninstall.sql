@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS `#__photo`;
+
+DROP TABLE IF EXISTS `#__xml`;
