@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="2.5">
+<name>photoldr</name>
+<!-- The following elements are optional and free of formatting conttraints -->
+<creationDate>2013-02-16</creationDate>
+<author>Brihaspati Infotech</author>
+<authorEmail>brihaspatitech.com</authorEmail>
+<authorUrl>www.brihaspatitech.com</authorUrl>
+<copyright>@Copyright 2013</copyright>
+<license>License Info</license>
+<!-- The version string is recorded in the components table -->
+<version>1.04</version>
+<!-- The description is optional and defaults to the name -->
+<description>photoldr Component</description>
+<!-- Site Main File Copy Section -->
+<!-- Note the folder attribute: This attribute describes the folder
+to copy FROM in the package to install therefore files copied
+in this section are copied from /site/ in the package -->
+<!-- Site Main File Copy Section -->
+<!-- Note the folder attribute: This attribute describes the folder
+to copy FROM in the package to install therefore files copied
+in this section are copied from /site/ in the package -->
+<files folder="site">
+<filename>index.html</filename>
+<filename>photoldr.php</filename>
+</files>
+<install>
+	<sql>
+		<file charset="utf8" driver="mysql">install.sql</file>
+	</sql>
+</install>
+<uninstall>
+	<sql>
+		<file charset="utf8" driver="mysql">uninstall.sql</file>
+	</sql>
+</uninstall>
+<administration>
+<!-- Administration Menu Section -->
+<menu>PhotoLDR</menu>
+<!-- Administration Main File Copy Section -->
+<!-- Note the folder attribute: This attribute describes the folder
+to copy FROM in the package to install therefore files copied
+in this section are copied from /admin/ in the package -->
+<files folder="admin">
+<!-- Admin Main File Copy Section -->
+<filename>index.html</filename>
+<filename>photoldr.php</filename>
+<filename>style.css</filename>
+<filename>colors-fresh.min.css</filename>
+<filename>controller.php</filename>
+<filename>install.sql</filename>                             
+<filename>uninstall.sql</filename>
+<filename>install.php</filename>                           
+<filename>uninstall.php</filename> 
+<folder>views</folder>
+<!-- SQL files section -->
+</files>
+</administration>
+</install>
