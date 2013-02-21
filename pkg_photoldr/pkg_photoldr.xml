@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="2.5" method="upgrade">
+<name>photoldr</name>
+<author>Brihaspatitech</author>
+<creationDate>FEB 16</creationDate>
+<packagename>photoldr</packagename>
+<version>1.0.2</version>
+<url>http://www.brihaspatitech.com</url>
+<description>Package</description>
+<files folder="packages">
+   <file type="component" id="photoldrc" >com_photoldrc.zip</file>
+   <file type="plugin" id="photoldrp" group="system">plg_sys_photoldrp.zip</file>
+</files>
+</extension>
