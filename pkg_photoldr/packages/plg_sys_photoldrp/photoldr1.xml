@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system">
+   <name>photoldr1</name>
+   <author>Test</author>
+   <creationDate>13-02-2013</creationDate>
+   <copyright>(C) 2013 All rights reserved.</copyright>
+   <license>GNU/GPL</license>
+   <authorEmail>admin@joomla.org</authorEmail>
+   <authorUrl>www.joomla.org</authorUrl>
+   <version>2.5.0</version>
+   <description>photoldr1</description>
+   <files>
+       <filename plugin="photoldr1">photoldr1.php</filename>
+   </files>   
+</extension>
