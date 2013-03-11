@@ -5,22 +5,37 @@ Joomla Extension for PhotoLDR app
 
 
 
-Manual Installation
+Installation
 ===================
 
-1.
+1. Download the pkg_photoldr.zip file.
 
-2.
-
-3.
+2. Use the Joomla Extension Manager to install the package.
 
 
+Activation
+===================
 
-Joomla Admin Installation
-=========================
+1.After installation Click on Manage tab 
 
-1. Login to the Joomla Adminsition control panel.
+2.Filter the plugin with photoldr.
 
-2.
+3.Enable the extension photoldr1.
 
-3.
+4 Select the component photoldr from component tab.
+
+5.Save the changes.
+
+
+
+Uninstall
+===================
+
+1.Click on extensions->Extension Manager tab.
+
+2.Ater that Click on Manage tab
+
+3.Filter the plugin with photoldr.
+
+4.Select the checkbox than uninstall the plugin 
+
